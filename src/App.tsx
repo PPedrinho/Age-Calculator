@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import iconArrow from './assets/icon-arrow.svg'
-import DateField from './components/CamposData'
-import Field from './components/Campos'
+import CamposData from './components/CamposData'
+import Campos from './components/Campos'
 
 import {
   diffYears,
@@ -63,6 +63,12 @@ function App() {
       return
     }
 
+    if (Number(ano) < 1990) {
+      setMensagemErro('O ano mínimo permitido é 1990.')
+      setTimeout(() => setMensagemErro(''), 5000)
+      return
+    }
+
     const dataInserida = new Date(`${ano}-${mes}-${dia}`)
     const hoje = new Date()
 
@@ -99,7 +105,7 @@ function App() {
         className='mx-auto w-[343px] py-12 rounded-3xl rounded-br-[100px] bg-white font-poppins lg:w-[840px]'
       >
         <div className='w-full flex justify-between gap-x-1 px-6 lg:px-12 lg:justify-start lg:gap-x-8'>
-          <Field
+          <Campos
             id='dia'
             label='dia'
             placeholder='DD'
@@ -108,7 +114,7 @@ function App() {
             value={data.dia}
             handlerChange={aoAlterar}
           />
-          <Field
+          <Campos
             id='mes'
             label='mês'
             placeholder='MM'
@@ -117,7 +123,7 @@ function App() {
             value={data.mes}
             handlerChange={aoAlterar}
           />
-          <Field
+          <Campos
             id='ano'
             label='ano'
             placeholder='AAAA'
@@ -153,9 +159,9 @@ function App() {
         </div>
 
         <div className='mt-16 pl-6 grid lg:px-12'>
-          <DateField name='Anos' value={idade.anos} />
-          <DateField name='Meses' value={idade.meses} />
-          <DateField name='Dias' value={idade.dias} />
+          <CamposData name='Anos' value={idade.anos} />
+          <CamposData name='Meses' value={idade.meses} />
+          <CamposData name='Dias' value={idade.dias} />
         </div>
       </form>
     </main>
