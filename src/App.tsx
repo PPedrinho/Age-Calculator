@@ -21,6 +21,7 @@ function App() {
     dias: '- -'
   })
   const [mensagemErro, setMensagemErro] = useState('')
+  const [dataFuturaErro, setDataFuturaErro] = useState('')
 
   const aoAlterar = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData((estadoAnterior) => ({
@@ -61,6 +62,18 @@ function App() {
       setTimeout(() => setMensagemErro(''), 5000)
       return
     }
+
+    const dataInserida = new Date(`${ano}-${mes}-${dia}`)
+    const hoje = new Date()
+
+    if (dataInserida > hoje) {
+      setDataFuturaErro('Data não pode ser no futuro.')
+      setIdade({ anos: '- -', meses: '- -', dias: '- -' })
+      setTimeout(() => setDataFuturaErro(''), 5000)
+      return
+    }
+
+    setDataFuturaErro('') 
 
     const { anos, meses, dias } = calcularIdade(ano, mes, dia)
     setIdade({
@@ -118,6 +131,12 @@ function App() {
         {mensagemErro && (
           <p className='mt-4 px-6 font-poppins font-normal italic text-xs text-red-500 leading-tight lg:px-12 lg:text-base'>
             {mensagemErro}
+          </p>
+        )}
+
+        {dataFuturaErro && (
+          <p className='mt-4 px-6 font-poppins font-normal italic text-xs text-red-500 leading-tight lg:px-12 lg:text-base'>
+            {dataFuturaErro}
           </p>
         )}
 
