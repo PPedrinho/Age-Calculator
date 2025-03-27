@@ -63,12 +63,6 @@ function App() {
       return
     }
 
-    if (Number(ano) < 1990) {
-      setMensagemErro('O ano mínimo permitido é 1990.')
-      setTimeout(() => setMensagemErro(''), 5000)
-      return
-    }
-
     const dataInserida = new Date(`${ano}-${mes}-${dia}`)
     const hoje = new Date()
 
